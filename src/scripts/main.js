@@ -2,10 +2,11 @@
 
 const gallery = document.querySelector('.gallery');
 
-gallery.addEventDateListener('click', (eventdate) => {
-  const target = eventdate.target;
+gallery.addEventListener('click', (evt) => {
+  const target = evt.target;
   let link;
   let url;
+  const bigImageEl = document.querySelector('#largeImg');
 
   if (target.tagName === 'IMG') {
     link = target.closest('a') || target.parentElement;
@@ -17,11 +18,11 @@ gallery.addEventDateListener('click', (eventdate) => {
     url = link.getAttribute('href') || link.dataset.src;
   }
 
-  if (link.tagName === 'A') {
-    eventdate.preventdateDefault();
+  if (link && link.tagName === 'A') {
+    evt.preventDefault();
   }
 
-  const bigImageEl = document.querySelector('.large-img');
-
-  bigImageEl.src = url;
+  if (url) {
+    bigImageEl.src = url;
+  }
 });
